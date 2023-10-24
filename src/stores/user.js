@@ -40,7 +40,7 @@ export const useUsers = defineStore('users', {
             // alert(1);
 
             axios
-                .post('/register', form.value)
+                .post('/api/register', form.value)
                 .then(response => {
                     this.authStatus = response.status
                     processing.value = false
@@ -64,7 +64,7 @@ export const useUsers = defineStore('users', {
             processing.value = true
 
             axios
-                .post('/login', form.value)
+                .post('/api/login', form.value)
                 .then(response => {
                     this.authStatus = response.status
                     processing.value = false
@@ -89,7 +89,7 @@ export const useUsers = defineStore('users', {
             processing.value = true
 
             axios
-                .post('/forgot-password', form.value)
+                .post('/api/forgot-password', form.value)
                 .then(response => {
                     setStatus.value = response.data.status
                     processing.value = false
@@ -110,7 +110,7 @@ export const useUsers = defineStore('users', {
             processing.value = true
 
             axios
-                .post('/reset-password', form.value)
+                .post('/api/reset-password', form.value)
                 .then(response => {
                     this.router.push(
                         '/login?reset=' + btoa(response.data.status),
@@ -130,7 +130,7 @@ export const useUsers = defineStore('users', {
         resendEmailVerification(setStatus, processing) {
             processing.value = true
 
-            axios.post('/email/verification-notification').then(response => {
+            axios.post('/api/email/verification-notification').then(response => {
                 setStatus.value = response.data.status
                 processing.value = false
             })
@@ -138,7 +138,7 @@ export const useUsers = defineStore('users', {
 
         async logout() {
             await axios
-                .post('/logout')
+                .post('/api/logout')
                 .then(() => {
                     this.$reset()
                     this.userData = {}
